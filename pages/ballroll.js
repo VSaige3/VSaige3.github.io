@@ -6,6 +6,15 @@ var onTitle = true;
 
 var drawables = [];
 
+var btn_start;
+var btn_quit;
+var btn_credit;
+
+var btn_pause;
+
+var btn_resume;
+var btn_back;
+
 function ballPath(startx, starty) {
   this.actionsQueue = [];
   this.addAction = function(action, ...params) {
@@ -26,7 +35,7 @@ function ballPath(startx, starty) {
   this.moveTo = function(x, y, rolls, smooth) {
     smooth = smooth || true;
 
-  }
+  };
 }
 
 function point(x, y) {
@@ -39,7 +48,10 @@ function point(x, y) {
 }
 
 function drawButton(x, y, width, height, text) {
-	
+	ctx.rect(x, y, width, height);
+	ctx.font = ((height + width) / 6).toString() + "px Arial";
+	ctx.textAlign = "Center";
+	ctx.fillText(text, (x + width) / 2, (y + height) / 2);
 }
 
 
@@ -63,11 +75,17 @@ function button(x, y, width, height, draw, text, action, ...params) {
 		if ( (this.x < mx && this.x+this.width > mx) && (this.y < my && this.y+this.height > my) ) this.action.call(this.params);
 	};
 	this.setVisible = function(visible){ this.visible = visible; };
+	this.show = function(){ this.setVisible(true); };
+	this.hide = function(){ this.setVisible(false); };
+	
 	this.setActive = function(active){
 		if(active && !this.active) c.addEventListener('mousedown', this.listener, false);
 		else if(!active && this.active) c.removeEventListener('mousedown', this.listener, false);
 		this.active = active;
-	}
+	};
+	this.activate = function(){ this.setActive(true); this.show(); };
+	this.deactivate = function(){ this.hide(); this.setActive(false); };
+	
 	drawables.append(this);
 }
 
@@ -97,7 +115,15 @@ function clear() {
 }
 
 function createTitle() {
-	//create buttons and stuff
+	//create buttons
+	btn_start = new button(c.width*(1/4), c.height*(1/5), c.width/2, c.height/5, null, "Start Game", (evt) => {eraseTitle();});
+	
+	//activate and show
+	btn_start.activate();
+}
+
+function eraseTitle() {
+	btn_start.deactivate();
 }
 
 function frameUpdate() {
