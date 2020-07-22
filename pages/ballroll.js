@@ -56,7 +56,9 @@ function drawButton(x, y, width, height, text) {
 	ctx.fillText(text, x + (width / 2), y + (height / 2));
 }
 
-
+function fillSGA(x, y, text) {
+	
+}
 
 function button(x, y, width, height, draw, text, action, ...params) {
 	//allow to be removed or added to visible (drawing queue)
@@ -82,8 +84,8 @@ function button(x, y, width, height, draw, text, action, ...params) {
 	this.hide = function(){ this.setVisible(false); };
 	
 	this.setActive = function(active){
-		if(active && !this.active) c.addEventListener('mousedown', this.listener, false);
-		else if(!active && this.active) c.removeEventListener('mousedown', this.listener, false);
+		if(active && !this.active) c.addEventListener('mouseup', this.listener, false);
+		else if(!active && this.active) c.removeEventListener('mouseup', this.listener, false);
 		this.active = active;
 	};
 	this.activate = function(){ this.setActive(true); this.show(); };
@@ -93,6 +95,9 @@ function button(x, y, width, height, draw, text, action, ...params) {
 }
 
 function loadImages() {
+	//load fonts
+	var gal_alph_font = new FontFace('Galactic Alphabet', 'url(../fonts/standard_galactic_aphabet.woff)');
+	gal_alph_font.load().then(function(loaded) {document.fonts.add(loaded);}).catch(function(error) {/*could not load font*/});
 	
 	for (var i=0;i<stages;i++){
   	var tempimg = new Image();
