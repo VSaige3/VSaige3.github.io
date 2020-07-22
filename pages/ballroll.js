@@ -53,7 +53,7 @@ function drawButton(x, y, width, height, text) {
 	ctx.fillRect(x, y, width, height);
 	ctx.font = ((height + width) / 6).toString() + "px Arial";
 	ctx.textAlign = "Center";
-	ctx.fillText(text, (x + width) / 2, (y + height) / 2);
+	ctx.fillText(text, x + (width / 2), y + (height / 2));
 }
 
 
