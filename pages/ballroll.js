@@ -97,7 +97,7 @@ function loadImages() {
   	tempimg.onload = function(){
   		loadedimgs.ball.push(tempimg);
     };
-    tempimg.src = "/resources/ball_rolling_" + i + ".png";
+    tempimg.src = "../resources/ball_rolling_" + i + ".png";
   }
   
 }
