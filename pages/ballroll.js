@@ -18,7 +18,7 @@ var btn_back;
 function ballPath(startx, starty) {
   this.actionsQueue = [];
   this.addAction = function(action, ...params) {
-    this.actionsQueue.append({
+    this.actionsQueue.push({
       action: action,
       params: params
     });
@@ -87,7 +87,7 @@ function button(x, y, width, height, draw, text, action, ...params) {
 	this.activate = function(){ this.setActive(true); this.show(); };
 	this.deactivate = function(){ this.hide(); this.setActive(false); };
 	
-	drawables.append(this);
+	drawables.push(this);
 }
 
 function loadImages() {
@@ -95,7 +95,7 @@ function loadImages() {
 	for (var i=0;i<stages;i++){
   	var tempimg = new Image();
   	tempimg.onload = function(){
-  		loadedimgs.ball.append(tempimg);
+  		loadedimgs.ball.push(tempimg);
     };
     tempimg.src = "/resources/ball_rolling_" + i + ".png";
   }
