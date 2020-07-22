@@ -5,6 +5,7 @@ var loadedimgs = { ball: [], table: null, scratches: null, scratch_anim: [] };
 var onTitle = true;
 
 var drawables = [];
+//todo: create visible and iterate for optimization
 
 var btn_start;
 var btn_quit;
@@ -58,6 +59,7 @@ function drawButton(x, y, width, height, text) {
 
 
 function button(x, y, width, height, draw, text, action, ...params) {
+	//allow to be removed or added to visible (drawing queue)
 	this.x = x;
 	this.y = y;
 	this.width = width;
