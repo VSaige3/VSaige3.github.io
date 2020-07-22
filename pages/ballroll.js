@@ -4,6 +4,8 @@ var loadedimgs = { ball: [], table: null, scratches: null, scratch_anim: [] };
 
 var onTitle = true;
 
+var drawables = [];
+
 function ballPath(startx, starty) {
   this.actionsQueue = [];
   this.addAction = function(action, ...params) {
@@ -37,21 +39,23 @@ function point(x, y) {
 }
 
 function drawButton(x, y, width, height, text) {
-
+	
 }
 
-function button(x, y, width, height, action, draw, text, ...params) {
+
+
+function button(x, y, width, height, draw, text, action, ...params) {
 	this.x = x;
 	this.y = y;
 	this.width = width;
 	this.height = height;
 	this.text = text;
 	this.action = action;
-	this.draw = draw || drawButton;
+	this.draw = draw || (x, y, w, h) => {drawButton(x, y, w, h, this.text)};
 	this.params = params;
 	this.active = false;
 	this.visible = false;
-	this.listener = function(evt){
+	this.listener = evt => {
 		var rect = c.getBoundingClientRect();
 		var mx, my;
 		mx = evt.clientX - rect.x;
@@ -64,6 +68,7 @@ function button(x, y, width, height, action, draw, text, ...params) {
 		else if(!active && this.active) c.removeEventListener('mousedown', this.listener, false);
 		this.active = active;
 	}
+	drawables.append(this);
 }
 
 function loadImages() {
@@ -83,15 +88,26 @@ function start() {
   ctx = c.getContext('2d');
   loadImages();
   setTimeout(function(){frameInterval = setInterval(frameUpdate, 300);}, 500); //so that the images are loaded
-	
+	createTitle();
   
 }
+
 function clear() {
-	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	ctx.clearRect(0, 0, c.width, c.height);
 }
+
+function createTitle() {
+	//create buttons and stuff
+}
+
 function frameUpdate() {
 	clear();
-	if(onTitle) drawTitle();
+	draw(drawables);
+}
+
+function draw(queue) {
+	queue = queue || drawables;
+	queue.forEach( e => { if(e.visible) e.draw(e.x, e.y, e.width, e.height); } );
 }
 
 var stages = 10;
