@@ -32,23 +32,24 @@ function ballPath(startx, starty) {
     return this.actionsQueue.pop();
   };
   //actions it can do (or should)
-  this.moveTo = function(x, y, rolls, smooth) {
-    smooth = smooth || true;
+	this.moveTo = function(x, y, rolls, smooth) {
+		smooth = smooth || true;
 
-  };
+	};
 }
 
 function point(x, y) {
-  this.x = x;
-  this.y = y;
-  this.distance = function(other) {
-    if (!(other instanceof point)) return -1;
-    return Math.sqrt((this.x - other.x) ** 2 + (this.y - other.y) ** 2)
-  };
+	this.x = x;
+	this.y = y;
+	this.distance = function(other) {
+		if (!(other instanceof point)) return -1;
+		return Math.sqrt((this.x - other.x) ** 2 + (this.y - other.y) ** 2)
+	};
 }
 
 function drawButton(x, y, width, height, text) {
-	ctx.rect(x, y, width, height);
+	ctx.fillStyle = "grey";
+	ctx.fillRect(x, y, width, height);
 	ctx.font = ((height + width) / 6).toString() + "px Arial";
 	ctx.textAlign = "Center";
 	ctx.fillText(text, (x + width) / 2, (y + height) / 2);
@@ -63,7 +64,7 @@ function button(x, y, width, height, draw, text, action, ...params) {
 	this.height = height;
 	this.text = text;
 	this.action = action;
-	this.draw = draw || (x, y, w, h) => {drawButton(x, y, w, h, this.text)};
+	this.draw = draw || function(x, y, w, h) {drawButton(x, y, w, h, this.text)};
 	this.params = params;
 	this.active = false;
 	this.visible = false;
