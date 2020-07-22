@@ -2,6 +2,8 @@ var c;
 var ctx;
 var loadedimgs = { ball: [], table: null, scratches: null, scratch_anim: [] };
 
+var onTitle = true;
+
 function ballPath(startx, starty) {
   this.actionsQueue = [];
   this.addAction = function(action, ...params) {
@@ -34,6 +36,36 @@ function point(x, y) {
   };
 }
 
+function drawButton(x, y, width, height, text) {
+
+}
+
+function button(x, y, width, height, action, draw, text, ...params) {
+	this.x = x;
+	this.y = y;
+	this.width = width;
+	this.height = height;
+	this.text = text;
+	this.action = action;
+	this.draw = draw || drawButton;
+	this.params = params;
+	this.active = false;
+	this.visible = false;
+	this.listener = function(evt){
+		var rect = c.getBoundingClientRect();
+		var mx, my;
+		mx = evt.clientX - rect.x;
+		my = evt.clientY - rect.y;
+		if ( (this.x < mx && this.x+this.width > mx) && (this.y < my && this.y+this.height > my) ) this.action.call(this.params);
+	};
+	this.setVisible = function(visible){ this.visible = visible; };
+	this.setActive = function(active){
+		if(active && !this.active) c.addEventListener('mousedown', this.listener, false);
+		else if(!active && this.active) c.removeEventListener('mousedown', this.listener, false);
+		this.active = active;
+	}
+}
+
 function loadImages() {
 	
 	for (var i=0;i<stages;i++){
@@ -50,12 +82,16 @@ function start() {
   c = document.getElementById("game");
   ctx = c.getContext('2d');
   loadImages();
-  setTimeout(function(){setInterval(frameUpdate, 300);}, 1000); //so that the images are loaded
+  setTimeout(function(){frameInterval = setInterval(frameUpdate, 300);}, 500); //so that the images are loaded
+	
   
 }
-
+function clear() {
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
 function frameUpdate() {
-
+	clear();
+	if(onTitle) drawTitle();
 }
 
 var stages = 10;
