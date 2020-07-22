@@ -49,29 +49,38 @@ function point(x, y) {
 }
 
 function drawButton(x, y, width, height, text) {
-	ctx.fillStyle = "grey";
+	ctx.fillStyle = "lightgrey";
 	ctx.fillRect(x, y, width, height);
 	ctx.font = ((height + width) / 6).toString() + "px Arial";
 	ctx.textAlign = "Center";
+	ctx.fillStyle = "black";
 	ctx.fillText(text, x + (width / 2), y + (height / 2));
 }
 
-function fillSGA(x, y, text) {
-	
+function drawSGAButton(x, y, width, height, text) {
+	text = text.toLowerCase();
+	ctx.fillStyle = "lightgrey";
+	ctx.fillRect(x, y, width, height);
+	ctx.font = ((height + width) / 6).toString() + "px Galactic Alphabet";
+	ctx.textAlign = "Center";
+	ctx.fillStyle = "black";
+	ctx.fillText(text, x + (width / 2), y + (height / 2));
 }
 
-function button(x, y, width, height, draw, text, action, ...params) {
-	//allow to be removed or added to visible (drawing queue)
+function button(x, y, width, height, draw, text, hover, action, ...params) {
+	//allow to be removed or added to visible (drawing queue
 	this.x = x;
 	this.y = y;
 	this.width = width;
 	this.height = height;
 	this.text = text;
 	this.action = action;
-	this.draw = draw || function(x, y, w, h) {drawButton(x, y, w, h, this.text)};
+	this.draw = draw || function(x, y, w, h) { if(hovering){drawButton(x, y, w, h, this.text);} else {drawSGAButton(x, y w, h, this.text);} };
+	this.hover = hover || function(hov){ this.hovering = hov; };
 	this.params = params;
 	this.active = false;
 	this.visible = false;
+	this.hovering = true;
 	this.listener = evt => {
 		var rect = c.getBoundingClientRect();
 		var mx, my;
@@ -79,6 +88,13 @@ function button(x, y, width, height, draw, text, action, ...params) {
 		my = evt.clientY - rect.y;
 		if ( (this.x < mx && this.x+this.width > mx) && (this.y < my && this.y+this.height > my) ) this.action.call(this.params);
 	};
+	this.hoverListener = evt => {
+		var rect = c.getBoundingClientRect();
+		var mx, my;
+		mx = evt.clientX - rect.x;
+		my = evt.clientY - rect.y;
+		this.hover( (this.x < mx && this.x+this.width > mx) && (this.y < my && this.y+this.height > my) );
+	}
 	this.setVisible = function(visible){ this.visible = visible; };
 	this.show = function(){ this.setVisible(true); };
 	this.hide = function(){ this.setVisible(false); };
@@ -86,6 +102,8 @@ function button(x, y, width, height, draw, text, action, ...params) {
 	this.setActive = function(active){
 		if(active && !this.active) c.addEventListener('mouseup', this.listener, false);
 		else if(!active && this.active) c.removeEventListener('mouseup', this.listener, false);
+		if(active && !this.active) c.addEventListener('mousemove', this.hoverListener, false);
+		else if(!active && this.active) c.removeEventListener('mousemove', this.hoverListener, false);
 		this.active = active;
 	};
 	this.activate = function(){ this.setActive(true); this.show(); };
