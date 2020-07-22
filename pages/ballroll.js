@@ -114,7 +114,7 @@ function button(x, y, width, height, draw, text, hover, action, ...params) {
 
 function loadImages() {
 	//load fonts
-	var gal_alph_font = new FontFace('Galactic Alphabet', 'url(../fonts/standard_galactic_aphabet.woff)');
+	var gal_alph_font = new FontFace('Galactic Alphabet', 'url(../resources/standard_galactic_aphabet.woff)');
 	gal_alph_font.load().then(function(loaded) {document.fonts.add(loaded);}).catch(function(error) {/*could not load font*/});
 	
 	for (var i=0;i<stages;i++){
