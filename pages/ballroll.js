@@ -5,6 +5,7 @@ var loadedimgs = { ball: [], table: null, scratches: null, scratch_anim: [] };
 var onTitle = true;
 
 var drawables = [];
+var visibles = [];
 //todo: create visible and iterate for optimization
 
 var btn_start;
@@ -88,7 +89,7 @@ function button(x, y, width, height, draw, text, hover, action, ...params) {
 		var my;
 		mx = evt.clientX - rect.x;
 		my = evt.clientY - rect.y;
-		if ((this.x < mx && this.x + this.width > mx) && (this.y < my && this.y + this.height > my)) this.action.call(this.params || evt);
+		if ((this.x < mx && this.x + this.width > mx) && (this.y < my && this.y + this.height > my)) this.action.apply([this.params || evt]);
 	};
 	this.hoverListener = function (evt) {
 		var rect = c.getBoundingClientRect();
@@ -96,9 +97,13 @@ function button(x, y, width, height, draw, text, hover, action, ...params) {
 		var my;
 		mx = evt.clientX - rect.x;
 		my = evt.clientY - rect.y;
-		this.hover((this.x < mx && this.x + this.width > mx) && (this.y < my && this.y + this.height > my));
+		this.hover.call((this.x < mx && this.x + this.width > mx) && (this.y < my && this.y + this.height > my));
 	}
-	this.setVisible = function (visible) { this.visible = visible; };
+	this.setVisible = function (visible) { 
+		this.visible = visible; 
+		if(visible && !visibles.includes(this)) visibles.push(this);
+		else visibles.splice(visibles.indexOf(this));
+	};
 	this.show = function () { this.setVisible(true); };
 	this.hide = function () { this.setVisible(false); };
 
@@ -113,12 +118,13 @@ function button(x, y, width, height, draw, text, hover, action, ...params) {
 	this.deactivate = function () { this.hide(); this.setActive(false); };
 
 	drawables.push(this);
+	
 }
 
 function loadImages() {
 	//load fonts
 	var gal_alph_font = new FontFace('Galactic Alphabet', 'url(../resources/standard_galactic_aphabet.woff)');
-	gal_alph_font.load().then(function (loaded) { document.fonts.add(loaded); }).catch(function (error) {/*could not load font*/ });
+	gal_alph_font.load().then(function (loaded) { document.fonts.add(loaded); console.log("font loaded succesfully"); }).catch(function (error) {console.log("could not load font"); });
 
 	for (var i = 0; i < stages; i++) {
 		var tempimg = new Image();
@@ -128,7 +134,7 @@ function loadImages() {
 		try {
 			tempimg.src = "../resources/ball_rolling_" + i + ".png";
 		} catch {
-
+			console.log("There was a problem loading resources");
 		}
 	}
 
@@ -171,6 +177,7 @@ function frameUpdate() {
 }
 
 function draw(queue) {
+	console.log(visibles);
 	queue = queue || drawables;
 	queue.forEach(e => { if (e.visible) e.draw(e.x, e.y, e.width, e.height); });
 }
