@@ -44,7 +44,7 @@ function point(x, y) {
 	this.y = y;
 	this.distance = function(other) {
 		if (!(other instanceof point)) return -1;
-		return Math.sqrt((this.x - other.x) ** 2 + (this.y - other.y) ** 2)
+		return Math.sqrt((this.x - other.x) ** 2 + (this.y - other.y) ** 2);
 	};
 }
 
@@ -60,11 +60,12 @@ function drawButton(x, y, width, height, text) {
 function drawSGAButton(x, y, width, height, text) {
 	text = text.toLowerCase();
 	ctx.fillStyle = "lightgrey";
+	
 	ctx.fillRect(x, y, width, height);
 	ctx.font = ((height + width) / 6).toString() + "px Galactic Alphabet";
-	ctx.textAlign = "Center";
+	ctx.textAlign = "center";
 	ctx.fillStyle = "black";
-	ctx.fillText(text, x + (width / 2), y + (height / 2));
+	ctx.fillText(text.toLowerCase(), x + (width / 2), y + (height / 2));
 }
 
 function button(x, y, width, height, draw, text, hover, action, ...params) {
@@ -86,7 +87,7 @@ function button(x, y, width, height, draw, text, hover, action, ...params) {
 		var mx, my;
 		mx = evt.clientX - rect.x;
 		my = evt.clientY - rect.y;
-		if ( (this.x < mx && this.x+this.width > mx) && (this.y < my && this.y+this.height > my) ) this.action.call(this.params);
+		if ( (this.x < mx && this.x+this.width > mx) && (this.y < my && this.y+this.height > my) ) this.action.call(this.params || evt);
 	};
 	this.hoverListener = evt => {
 		var rect = c.getBoundingClientRect();
@@ -142,14 +143,20 @@ function clear() {
 
 function createTitle() {
 	//create buttons
-	btn_start = new button(c.width*(1/4), c.height*(1/5), c.width/2, c.height/5, null, "Start Game", (evt) => {eraseTitle();});
-	
+	btn_start = new button(c.width*(1/4), c.height*(1/5), c.width/2, c.height/5, null, "Start Game", evt => {startGame();});
+	btn_quit = new button(c.width*(1/4), c.height*(3/10), c.width/2, c.height/5, null, "Quit", evt => {window.location.href="https://vsaige3.github.io/";});
 	//activate and show
 	btn_start.activate();
+	btn_quit.activate();
 }
 
 function eraseTitle() {
 	btn_start.deactivate();
+	btn_quit.deactivate();
+}
+
+function startGame() {
+	//this is where initializing game and a flag that says it has started happens
 }
 
 function frameUpdate() {
