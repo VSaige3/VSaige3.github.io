@@ -69,7 +69,7 @@ function drawSGAButton(x, y, width, height, text) {
 	ctx.fillText(text.toLowerCase(), x + (width / 2), y + (height / 2));
 }
 
-function button(x, y, width, height, draw, text, hover, action, ...params) {
+function button(x, y, width, height, text, draw, hover, action, ...params) {
 	//allow to be removed or added to visible (drawing queue)
 	this.x = x;
 	this.y = y;
@@ -155,8 +155,8 @@ function clear() {
 
 function createTitle() {
 	//create buttons
-	btn_start = new button(c.width * (1 / 4), c.height * (1 / 5), c.width / 2, c.height / 5, "Start Game", null, evt => { startGame(); });
-	btn_quit = new button(c.width * (1 / 4), c.height * (2 / 5), c.width / 2, c.height / 5, "Quit", null, evt => { window.location.href = "https://vsaige3.github.io/"; });
+	btn_start = new button(c.width * (1 / 4), c.height * (1 / 5), c.width / 2, c.height / 5, "Start Game", null, null, evt => { startGame(); });
+	btn_quit = new button(c.width * (1 / 4), c.height * (2 / 5), c.width / 2, c.height / 5, "Quit", null, null, evt => { window.location.href = "https://vsaige3.github.io/"; });
 	//activate and show
 	btn_start.activate();
 	btn_quit.activate();
