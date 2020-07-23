@@ -143,8 +143,8 @@ function clear() {
 
 function createTitle() {
 	//create buttons
-	btn_start = new button(c.width*(1/4), c.height*(1/5), c.width/2, c.height/5, null, "Start Game", evt => {startGame();});
-	btn_quit = new button(c.width*(1/4), c.height*(3/10), c.width/2, c.height/5, null, "Quit", evt => {window.location.href="https://vsaige3.github.io/";});
+	btn_start = new button(c.width*(1/4), c.height*(1/5), c.width/2, null, c.height/5, "Start Game", evt => {startGame();});
+	btn_quit = new button(c.width*(1/4), c.height*(3/10), c.width/2, null, c.height/5, "Quit", evt => {window.location.href="https://vsaige3.github.io/";});
 	//activate and show
 	btn_start.activate();
 	btn_quit.activate();
