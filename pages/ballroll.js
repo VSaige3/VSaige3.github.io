@@ -76,7 +76,7 @@ function button(x, y, width, height, draw, text, hover, action, ...params) {
 	this.height = height;
 	this.text = text;
 	this.action = action;
-	this.draw = draw || function(x, y, w, h) { if(this.hovering){drawButton(x, y, w, h, this.text);} else {drawSGAButton(x, y w, h, this.text);} };
+	this.draw = draw || function(x, y, w, h) { if(this.hovering){drawButton(x, y, w, h, this.text);} else {drawSGAButton(x, y, w, h, this.text);} };
 	this.hover = hover || function(hov){ this.hovering = hov; };
 	this.params = params;
 	this.active = false;
