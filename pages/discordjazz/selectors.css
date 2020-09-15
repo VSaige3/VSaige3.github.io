@@ -20,14 +20,10 @@
   background-color: blue !important; /*for testing*/
 }
 
-.taskbar-container .taskbar-sel-content {
+.default-visible,
+.taskbar-container:target .taskbar-sel-content {
   /*  a visible normally-hidden page  */
   visibility: visible;
   background-color: red; /*for testing*/
-}
-
-.default-visible {
-  visibility: visible;
-  background-color: orange; /*for testing*/
 }
 
