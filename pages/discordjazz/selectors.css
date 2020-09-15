@@ -16,8 +16,8 @@
 
 .taskbar-container:not(:target) .taskbar-sel-content:not(.default-visible) {
   /*  normally hidden content while hidden  */
-  visibility: hidden;
-  background-color: blue; /*for testing*/
+  visibility: collapse !important;
+  background-color: blue !important; /*for testing*/
 }
 
 .taskbar-container .taskbar-sel-content {
