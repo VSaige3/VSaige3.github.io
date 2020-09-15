@@ -1,6 +1,8 @@
 :root {
   --color-theme-1: black;
+  --color-sub-1: lightgray;
   --color-theme-2: white;
+  --color-sub-2: darkgrey;
 }
 
 .taskbar-header {
@@ -14,15 +16,18 @@
 
 .taskbar-container:not(:target) .taskbar-sel-content:not(.default-visible) {
   /*  normally hidden content while hidden  */
-  
+  visible: false;
+  background-color: blue; /*for testing*/
 }
 
 .taskbar-container .taskbar-sel-content {
   /*  a visible normally-hidden page  */
-  
+  visible: true;
+  background-color: red; /*for testing*/
 }
 
 .default-visible {
   visible: true;
+  background-color: orange; /*for testing*/
 }
 
