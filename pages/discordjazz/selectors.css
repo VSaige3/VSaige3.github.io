@@ -16,18 +16,18 @@
 
 .taskbar-container:not(:target) .taskbar-sel-content:not(.default-visible) {
   /*  normally hidden content while hidden  */
-  visible: false;
+  visibility: hidden;
   background-color: blue; /*for testing*/
 }
 
 .taskbar-container .taskbar-sel-content {
   /*  a visible normally-hidden page  */
-  visible: true;
+  visibility: visible;
   background-color: red; /*for testing*/
 }
 
 .default-visible {
-  visible: true;
+  visibility: visible;
   background-color: orange; /*for testing*/
 }
 
