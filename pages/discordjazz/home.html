@@ -1,6 +1,24 @@
 <html>
 <head>
+  <script>
+    //this is where the image is loaded if it exists
+    var img_tag = document.getElementById("ico-image");
+    var df_url = "./fail.jpg";
+    var url = "./jazz_icon.jpg";
+    var using_df = false;
+    var img = new Image();
+    img.onload = function() { using_df = false; };
+    img.onerror = function() { using_df = true; };
+    img.src = url;
+    if (using_df){
+      img_tag.href = df_url;
+    } else {
+      img_tag.href = url;
+    }
+  </script>
+<link rel="icon" id="ico-image" href=""></link> <!-- add in image -->
 <link rel="stylesheet" href="selectors.css">
+
 </head>
 <body>
 <!--
@@ -10,19 +28,30 @@ hashes:
 -contact us
 -related projects
 -donate
---!>
+-->
 
-<div id="taskbar-container" class="taskbar">
+<div id="taskbar-container" class="taskbar"> <!-- top-level container -->
 
+<!-- default section: about  -->
 <div id="about" class="taskbar-container">
   <div id="about-head" class="taskbar-header">
     <a href="#about">About Us</a>
   </div>
   <div id="about-content" class="taskbar-sel-content default-visible">
-    nothing to see here
+    {put about content here}
   </div>
 </div>
 
-</div> <!--end of taskbar--!>
+<!-- new section: join -->
+<div id="join" class="taskbar-container">
+  <div id="join-head" class="taskbar-header">
+    <a href="#join">About Us</a>
+  </div>
+  <div id="join-content" class="taskbar-sel-content">
+    {put joining info here, like permanent invite}
+  </div>
+</div>
+
+</div> <!--end of taskbar-->
 </body>
 </html>
