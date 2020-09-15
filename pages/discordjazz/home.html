@@ -1,26 +1,28 @@
 <html>
 <head>
   <script>
-    //this is where the image is loaded if it exists
-    var img_tag = document.getElementById("ico-image");
-    var df_url = "fail.png";
-    var url = "licc.jpg";
-    var using_df = false;
-    var img = new Image();
-    img.onload = function() { using_df = false; };
-    img.onerror = function() { using_df = true; };
-    img.src = url;
-    if (using_df){
-      img_tag.href = df_url;
-    } else {
-      img_tag.href = url;
+    function initIcon(){
+      //this is where the image is loaded if it exists
+      var img_tag = document.getElementById("ico-image");
+      var df_url = "fail.png";
+      var url = "licc.jpg";
+      var using_df = false;
+      var img = new Image();
+      img.onload = function() { using_df = false; };
+      img.onerror = function() { using_df = true; };
+      img.src = url;
+      if (using_df){
+        img_tag.href = df_url;
+      } else {
+        img_tag.href = url;
+      }
     }
   </script>
 <link rel="icon" id="ico-image" href=""></link> <!-- add in image -->
 <link rel="stylesheet" href="selectors.css">
 
 </head>
-<body>
+<body onload="initIcon();">
 <!--
 hashes:
 -about
