@@ -11,7 +11,13 @@
 }
 
 .taskbar-header a {
-  display: block; /* might break */
+  display: block;
+  background-color: var(--color-sub-1);
+  text-color: black;
+}
+
+.taskbar-header a:hover {
+  background-color: var(--color-sub-2);
 }
 
 .taskbar-container:target .taskbar-header {
