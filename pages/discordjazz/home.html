@@ -1,7 +1,14 @@
 <html>
 <head>
   <script>
+    var default_section = "#about";
+    function doRedirect(){
+      if (location.hash != default_section){
+       location.hash = default_section; 
+      }
+    }
     function initIcon(){
+      doRedirect();
       //this is where the image is loaded if it exists
       var img_tag = document.getElementById("ico-image");
       var df_url = "./fail.png";
@@ -18,7 +25,7 @@
       }
     }
   </script> 
-  <meta http-equiv="refresh" content="0; URL=#join" /> <!-- prob wont work -->
+  <!-- <meta http-equiv="refresh" content="0; URL=#join" />  destroys computer  -->
   <meta name="description" content="Discord Jazz Band" />
   <meta name="keywords" content="Discord, Music, Jazz Band, Symphony" />
   
@@ -44,7 +51,7 @@ hashes:
   <div id="about-head" class="taskbar-header">
     <a href="#about">About Us</a>
   </div>
-  <div id="about-content" class="taskbar-sel-content default-visible">
+  <div id="about-content" class="taskbar-sel-content"> <!-- no need for class, set in javascript -->
     {put about content here}
   </div>
 </div>
