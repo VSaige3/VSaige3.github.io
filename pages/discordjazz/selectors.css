@@ -14,13 +14,12 @@
   border-bottom-color: var(--color-theme-2);
 }
 
-.taskbar-container:not(:target) .taskbar-sel-content:not(.default-visible) {
+.taskbar-container:not(:target) .taskbar-sel-content {
   /*  normally hidden content while hidden  */
   visibility: collapse !important;
   background-color: blue !important; /*for testing*/
 }
 
-.default-visible,
 .taskbar-container:target .taskbar-sel-content {
   /*  a visible normally-hidden page  */
   visibility: visible;
