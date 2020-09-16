@@ -13,7 +13,8 @@
 .taskbar-header a {
   display: block;
   background-color: var(--color-sub-1);
-  text-color: black;
+  color: var(--color-theme-1);
+  text-decoration: none;
 }
 
 .taskbar-header a:hover {
