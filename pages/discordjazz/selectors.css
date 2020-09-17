@@ -30,6 +30,7 @@
 
 .taskbar-container:not(:target) .taskbar-sel-content {
   /*  normally hidden content while hidden  */
+  display: none;
   visibility: hidden;
   background-color: blue; /*for testing*/
 }
