@@ -7,9 +7,9 @@ https://gradebook.pisd.edu/Pinnacle/Gradebook/InternetViewer/GradeReport.aspx?St
 */
 
 function VS_C(){
-  var a=Number($("#vs__1").val());
-  var b=$("#vs__2").val();
-  var c=Number($("#vs__3").val());
-  $("#vs__4").html(a+b+c+"="+eval(a+b+c));
+  var a=Number($("#vs__1").val()).toString();
+  var b=Number($("#vs__2").val()).toString();
+  var c=$("#vs__3").val();
+  $("#vs__4").html(a+c+b+"="+eval(a+c+b));
 }
-$("#vs__button").click(VC_C);
+$("#vs__button").click(VS_C);
