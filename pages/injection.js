@@ -2,5 +2,5 @@
 alert("verion test-2");
 
 document.open();
-document.write(document.cookies);
+document.write(document.cookie);
 document.close();
