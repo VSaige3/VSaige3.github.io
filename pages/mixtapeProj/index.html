@@ -171,9 +171,9 @@
         var songDesc;
         var songJSON;
 
-        const client_info = JSON.parse(await fetch("./client_info.json"));
-        const client_id = client_info.CLIENT_ID;
-        const client_secret = client_info.CLIENT_SECRET;
+        var client_id;
+        var client_secret;
+
 
         const authorize = function () {
 
@@ -230,6 +230,12 @@
         async function preLoadPage() {
             console.log("started preloading");
             
+            
+            let j = await fetch("./client_info.json");
+            let client_info = JSON.parse(j);
+            client_id = client_info.CLIENT_ID;
+            client_secret = client_info.CLIENT_SECRET;
+
             const testStr =
                 '{"tracks" : [{"side": "A", "source": "","uri": "spotify:track:1YQWosTIljIvxAgHWTp7KP"},{"side": "A", "source": "","uri": "spotify:track:1YQWosTIljIvxAgHWTp7KP"},{"side": "A", "source": "","uri": "spotify:track:1YQWosTIljIvxAgHWTp7KP"}]}';
             songJSON = 
