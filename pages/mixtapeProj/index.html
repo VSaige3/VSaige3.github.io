@@ -81,6 +81,7 @@
     </script>
 -->
     <style>
+
         body {
             font-size: 10;
             font-family: 'Courier New', Courier, monospace;
@@ -139,6 +140,8 @@
             display: none;
         }
 
+
+
         .invisible {
             display: none;
         }
@@ -192,11 +195,10 @@
             return $.post(authOptions).then(
                 (body, status, response) => {  
                     return new Promise((resolve, reject) => {
-                        if (response.status == 200) {
+                        if (response.status == 200)
                             if (resolve) resolve(body.access_token);
-                        } else {
+                        else
                             if(reject) reject(status);
-                        }
                     });
                 }
             );
@@ -215,29 +217,37 @@
                     };
                     await $.get(options, (data) => {
                         // go through song descriptions and add more properties
-                        for (let a = 0; a < data.items.length; a ++) {
+                        for (let a = 0; a < data.items.length; a ++)
                             for (let i = 0; i < songJSON.tracks.length; i ++)
-                            {
                                 if (songJSON.tracks[i].uri == data.items[a].track.uri)
-                                {
                                     Object.assign(songDesc.tracks[i], data.items[a].track);
-                                }
-                            }
-                        }
                     });
                 });
             };
         async function preLoadPage() {
             console.log("started preloading");
             
+            const StrXOR = (a, b) => {
+                let s = '';
+                for(let i=0; i < Math.min(a.length, b.length); i ++) s += ((Number.parseInt(a.charAt(i), 16) ^  Number.parseInt(b.charAt(i), 16)).toString(16));
+                return s;
+            };
             
-            let j = await fetch("./client_info.json");
-            let client_info = JSON.parse(j);
-            client_id = client_info.CLIENT_ID;
-            client_secret = client_info.CLIENT_SECRET;
+            let client_info = 
+                await fetch("./client_info.json")
+                    .then((data) => JSON.parse(data))
+                    .catch(() => {console.log('failed to load credentials file'); return {CLIENT_ID: '3fc76502e8a8d1800526464fe6cf1dc1', CLIENT_SECRET: '10229b0f5d41c5b3bb79ac363bdb6053'};});
+            
+            // XOR the id and secret with the respective URL parameters
+
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('id_key') && client_info)
+                client_id = StrXOR(client_info.CLIENT_ID, urlParams.get('id_key'));
+            if (urlParams.has('secret_key') && client_info)
+                client_secret = StrXOR(client_info.CLIENT_SECRET, urlParams.get('secret_key'));
 
             const testStr =
-                '{"tracks" : [{"side": "A", "source": "","uri": "spotify:track:1YQWosTIljIvxAgHWTp7KP"},{"side": "A", "source": "","uri": "spotify:track:1YQWosTIljIvxAgHWTp7KP"},{"side": "A", "source": "","uri": "spotify:track:1YQWosTIljIvxAgHWTp7KP"}]}';
+                '{"tracks" : [{"side": "A", "source": "","uri": "spotify:track:1YQWosTIljIvxAgHWTp7KP", "description": "no data"},{"side": "A", "source": "","uri": "spotify:track:1YQWosTIljIvxAgHWTp7KP", "description": "no data"},{"side": "A", "source": "","uri": "spotify:track:1YQWosTIljIvxAgHWTp7KP", "description": "no data"}]}';
             songJSON = 
                 await fetch("./song_descriptions.json")
                     .then(response => {
@@ -249,8 +259,11 @@
                     });
             
             songDesc = songJSON;
-            await getSongInfo('3AprWJovXHPgcqXxE7x1NR');
-            await getSongInfo('43L5a76jmUpHylPCtZPOeX');
+            var failed = false;
+            await getSongInfo('3AprWJovXHPgcqXxE7x1NR').catch(() => failed = true);
+            await getSongInfo('43L5a76jmUpHylPCtZPOeX').catch(() => failed = true);
+            if (failed)
+                return new Promise((sucess, failure) => failure('incorrect credentials'))
             console.log("finished preloading");
         }
         // only run this function once to intialize both sides of list, display as needed
@@ -271,6 +284,7 @@
                 // add the listing to the html
                 // TODO: this is probably the messy way to do this, fix it
                 console.log(songDesc.tracks[index]);
+                // TODO: maybe use spotify embed to do this
                 str += `<audio src="${songDesc.tracks[index].source}" type="${'audio/mp3'}" id="audio${index}"></audio><div class="clickable-clean side-${songDesc.tracks[index].side}" id="song${index}">${formatSong(songDesc.tracks[index])}</div><span class="song-description invisible" id="description${index}">${songDesc.tracks[index].description}</span><br/>`;
             }
 
@@ -288,7 +302,11 @@
             }
             for (let index = 0; index < songDesc.tracks.length; index++)
                 $('#song' + index).click(event => trigger(index));
-        }));
+            
+            $('#switchSide').click(function(){$('.clickable-clean').toggleClass('.side-A').toggleClass('side-B')});
+        }).catch(
+            (reason) => document.write("failed to load: " + reason)
+        ));
     </script>
 
     <button id="switchSide">switch side</button>

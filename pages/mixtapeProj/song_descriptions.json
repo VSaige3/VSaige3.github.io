@@ -4,7 +4,61 @@
             "side" : "A",
             "source" : "",
             "uri" : "spotify:track:1YQWosTIljIvxAgHWTp7KP",
-            "description" : ""
+            "description" : "This is a song I associate with my grandfather; it was one of his favorites and I played it at his celebration of life ceremony"
+        },
+        { 
+            "side" : "A",
+            "source" : "",
+            "uri" : "spotify:track:7CrNF9zL7tIQ2269DVxzST",
+            "description" : "Blue Rondo a La Turk was one of the first jazz pieces I really listened to, so I listened to it a lot when we made yearly visits to New Mexico. Many of my early experiences with jazz are associated with New Mexico."
+        },
+        { 
+            "side" : "A",
+            "source" : "",
+            "uri" : "spotify:track:5KlN2eLIGhg6GGwxGPB7dv",
+            "description" : "I discovered this song while looking for pieces to play on French Horn, and the mood of this piece really fits with New Mexico. It's laid-back but lively at the same time, which I think well encapulates the desert attitude"
+        },
+        { 
+            "side" : "A",
+            "source" : "",
+            "uri" : "spotify:track:73uEbChpBB29ttwVnwuNVE",
+            "description" : "Something about Mambo Gallego"
+        },
+        { 
+            "side" : "A",
+            "source" : "",
+            "uri" : "spotify:track:1YQWosTIljIvxAgHWTp7KP",
+            "description" : "Something about Oye Como Va"
+        },
+        { 
+            "side" : "B",
+            "source" : "",
+            "uri" : "spotify:track:1YQWosTIljIvxAgHWTp7KP",
+            "description" : "Something about Black Dog"
+        },
+        { 
+            "side" : "B",
+            "source" : "",
+            "uri" : "spotify:track:1YQWosTIljIvxAgHWTp7KP",
+            "description" : "Something about 46 & 2"
+        },
+        { 
+            "side" : "B",
+            "source" : "",
+            "uri" : "spotify:track:1YQWosTIljIvxAgHWTp7KP",
+            "description" : "Something about Hotel California"
+        },
+        { 
+            "side" : "B",
+            "source" : "",
+            "uri" : "spotify:track:1YQWosTIljIvxAgHWTp7KP",
+            "description" : "Something about Something"
+        },
+        { 
+            "side" : "B",
+            "source" : "",
+            "uri" : "spotify:track:1YQWosTIljIvxAgHWTp7KP",
+            "description" : "Something about Something"
         }
     ]
 }
