@@ -235,8 +235,7 @@
             
             let client_info = 
                 await fetch("./client_info.json")
-                    .then((data) => JSON.parse(data))
-                    .catch(() => {console.log('failed to load credentials file'); return {CLIENT_ID: '3fc76502e8a8d1800526464fe6cf1dc1', CLIENT_SECRET: '10229b0f5d41c5b3bb79ac363bdb6053'};});
+                    .then((data) => data.json(), () => {console.log('failed to load credentials file'); return {CLIENT_ID: '3fc76502e8a8d1800526464fe6cf1dc1', CLIENT_SECRET: '10229b0f5d41c5b3bb79ac363bdb6053'};});
             
             // XOR the id and secret with the respective URL parameters
 
@@ -251,7 +250,7 @@
             songJSON = 
                 await fetch("./song_descriptions.json")
                     .then(response => {
-                        return JSON.parse(response);
+                        return response.json();
                     })
                     .catch( reason => {
                         console.log(`could not load json file, reason: ${reason}`);
