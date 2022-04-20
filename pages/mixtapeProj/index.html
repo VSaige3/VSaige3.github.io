@@ -8,8 +8,7 @@
 
 <body>
 
-    <h1>Vuyani Saige: Mixtape Project</h1>
-    <button id="togglePlay">Toggle Play</button>
+    <h1>Vuyani Saige: Memories of New Mexico</h1>
 
     <!--
     <script>
@@ -148,19 +147,42 @@
 
         .song-description {
             position: relative;
-            text-align: left;
+            text-align: center;
             padding: 5px 0;
-            z-index: 4;
-            left: 20px;
+            left: 10%;
             top: 0%;
         }
 
         .song-table {
             padding: 10px 10px;
-            position: absolute;
-            text-align: left;
-            left: 50%;
+            width: fit-content;
+            min-height: 100%;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
         }
+
+        img {
+            display: block;
+            padding: 10px;
+            max-width: 90%;
+            height: auto;
+            margin: auto;
+        }
+
+        button {
+            background-color: grey;
+            border: none;
+            font-size: 16px;
+            text-align: center;
+            display: inline-block;
+            transition-duration: 0.2s;
+        }
+
+        button:hover {
+            background-color: lightgrey;
+        }
+
     </style>
     <script>
 
@@ -246,7 +268,7 @@
                 client_secret = StrXOR(client_info.CLIENT_SECRET, urlParams.get('secret_key'));
 
             const testStr =
-                '{"tracks" : [{"side": "A", "source": "","uri": "spotify:track:1YQWosTIljIvxAgHWTp7KP", "description": "no data"},{"side": "A", "source": "","uri": "spotify:track:1YQWosTIljIvxAgHWTp7KP", "description": "no data"},{"side": "A", "source": "","uri": "spotify:track:1YQWosTIljIvxAgHWTp7KP", "description": "no data"}]}';
+                '{"tracks" : [{"side": "A", "source": "https://www.soundjay.com/human/sounds/fart-04.mp3","uri": "spotify:track:1YQWosTIljIvxAgHWTp7KP", "description": "no data"},{"side": "A", "source": "https://www.soundjay.com/human/sounds/fart-01.mp3","uri": "spotify:track:3nsUVlntPIksDvhHdZZhiu", "description": "no data"},{"side": "A", "source": "https://www.soundjay.com/human/sounds/fart-01.mp3","uri": "spotify:track:1YQWosTIljIvxAgHWTp7KP", "description": "no data"}]}';
             songJSON = 
                 await fetch("./song_descriptions.json")
                     .then(response => {
@@ -265,6 +287,33 @@
                 return new Promise((sucess, failure) => failure('incorrect credentials'))
             console.log("finished preloading");
         }
+
+        const trigger = (index) => {
+                // toggle visibility of description
+                $('#description' + index).toggleClass('invisible');
+                // $(target).toggle();
+
+                // make all others invisible
+                $(`.song-description[id!='description${index}']`).addClass('invisible');
+                // $(target).hide();
+
+                // end other audio
+                $('audio')[0].currentTime = 0;
+                $(`audio[id!='audio${index}']`)[0].pause();
+
+                // play song
+                let elem = $('#audio' + index)[0];
+                if (elem.paused)
+                    elem.play();
+                else
+                    elem.pause();
+                // target.play();
+
+                console.log(index);
+            }
+
+        var sideA = true;
+
         // only run this function once to intialize both sides of list, display as needed
         $(document).ready(preLoadPage().then(function () {
             console.log("started loading");
@@ -284,32 +333,31 @@
                 // TODO: this is probably the messy way to do this, fix it
                 console.log(songDesc.tracks[index]);
                 // TODO: maybe use spotify embed to do this
-                str += `<audio src="${songDesc.tracks[index].source}" type="${'audio/mp3'}" id="audio${index}"></audio><div class="clickable-clean side-${songDesc.tracks[index].side}" id="song${index}">${formatSong(songDesc.tracks[index])}</div><span class="song-description invisible" id="description${index}">${songDesc.tracks[index].description}</span><br/>`;
+                songDesc.tracks[index].source = './resources/' + songDesc.tracks[index].name + '.mp3';
+                str += `<audio onended="if(${(index + 1) < songDesc.tracks.length ? (songDesc.tracks[index + 1].side == songDesc.tracks[index].side) : false})trigger(${index + 1});" src="${songDesc.tracks[index].source}" type="${'audio/mp3'}" id="audio${index}"></audio><div class="clickable-clean side-${songDesc.tracks[index].side}" id="song${index}" controls>${formatSong(songDesc.tracks[index])}</div><span class="song-description invisible" id="description${index}">${songDesc.tracks[index].description}</span><br/>`;
+                // str += `<iframe src="https://open.spotify.com/embed/track/${songDesc.tracks[index].uri.split(':')[2]}?utm_source=generator" type="${'audio/mp3'}" id="audio${index}"></iframe><div class="clickable-clean side-${songDesc.tracks[index].side}" id="song${index}">${formatSong(songDesc.tracks[index])}</div><span class="song-description invisible" id="description${index}">${songDesc.tracks[index].description}</span><br/>`;
             }
 
             $('#songTable').html(str);
-
-            const trigger = (index) => {
-                // toggle visibility of description
-                $('#description' + index).toggle();
-
-                // make all others invisible
-                $(`.song-description[id!='description${index}']`).hide();
-
-                // play song
-                $('#audio' + index)[0].play();
-            }
             for (let index = 0; index < songDesc.tracks.length; index++)
-                $('#song' + index).click(event => trigger(index));
+                $('#song' + index).click(event => trigger(index))[0].addEventListener('ended', (event) => {console.log('ended');});
             
-            $('#switchSide').click(function(){$('.clickable-clean').toggleClass('.side-A').toggleClass('side-B')});
+            $('#switchSide').click(function(){sideA = !sideA;$('.clickable-clean').toggleClass('.side-A').toggleClass('side-B');$('audio')[0].pause();$('.song-description').addClass('invisible');});
+            $('#stopAll').click((event) => {$('audio')[0].pause();console.log('stop');});
+            $('#playAll').click((event) => {trigger(0);});
         }).catch(
             (reason) => document.write("failed to load: " + reason)
         ));
     </script>
 
+
+    <img src="./resources/albumcover.jpg"/>
+    <p><i>Dedicated to my grandmother in New Mexico</i></p>
     <button id="switchSide">switch side</button>
-    <button id="startTest">play song</button>
+    <button id="playAll">play all</button>
+    <button id="stopAll">stop all</button> <br/>
+    <a href="https://open.spotify.com/playlist/3AprWJovXHPgcqXxE7x1NR" class="side-A">Spotify Playlist for Side A</a>
+    <a href="https://open.spotify.com/playlist/43L5a76jmUpHylPCtZPOeX" class="side-B">Spotify Playlist for Side B</a>
     <!--TODO: make the table look nice-->
     <div id="songTable" class="song-table">
     </div>

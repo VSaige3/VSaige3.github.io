@@ -21,44 +21,44 @@
         { 
             "side" : "A",
             "source" : "",
-            "uri" : "spotify:track:73uEbChpBB29ttwVnwuNVE",
+            "uri" : "spotify:track:79fIO8wks5P9MZJnUpiNYx",
             "description" : "Something about Mambo Gallego"
         },
         { 
             "side" : "A",
             "source" : "",
-            "uri" : "spotify:track:1YQWosTIljIvxAgHWTp7KP",
+            "uri" : "spotify:track:73uEbChpBB29ttwVnwuNVE",
             "description" : "Something about Oye Como Va"
         },
         { 
             "side" : "B",
             "source" : "",
-            "uri" : "spotify:track:1YQWosTIljIvxAgHWTp7KP",
-            "description" : "Something about Black Dog"
+            "uri" : "spotify:track:3nsUVlntPIksDvhHdZZhiu",
+            "description" : "My dad used to play this song for my sisters and I throughout our childhood, so it is very special to me. It reminds me of New Mexico because that's his birthplace and the home of his grandparents"
         },
         { 
             "side" : "B",
             "source" : "",
-            "uri" : "spotify:track:1YQWosTIljIvxAgHWTp7KP",
+            "uri" : "spotify:track:6AioOohg4bQZFA4jIYQQ2r",
             "description" : "Something about 46 & 2"
         },
         { 
             "side" : "B",
             "source" : "",
-            "uri" : "spotify:track:1YQWosTIljIvxAgHWTp7KP",
+            "uri" : "spotify:track:2ELuHKWwTMUAd9HSvMaI1j",
             "description" : "Something about Hotel California"
         },
         { 
             "side" : "B",
             "source" : "",
-            "uri" : "spotify:track:1YQWosTIljIvxAgHWTp7KP",
-            "description" : "Something about Something"
+            "uri" : "spotify:track:0vFOzaXqZHahrZp6enQwQb",
+            "description" : "Something about Money"
         },
         { 
             "side" : "B",
             "source" : "",
-            "uri" : "spotify:track:1YQWosTIljIvxAgHWTp7KP",
-            "description" : "Something about Something"
+            "uri" : "spotify:track:63T7DJ1AFDD6Bn8VzG6JE8",
+            "description" : "Something about Paint it black"
         }
     ]
 }
