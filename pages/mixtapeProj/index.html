@@ -3,6 +3,7 @@
 
 <head>
     <title>Vuyani Saige: Mixtape Project</title>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
@@ -142,14 +143,18 @@
 
 
         .invisible {
-            display: none;
+            display: none !important;
+            visibility: hidden;
         }
 
         .song-description {
             position: relative;
+            display: inline-block;
             text-align: center;
+            max-width: 75%;
+            overflow: hidden;
             padding: 5px 0;
-            left: 10%;
+            /* left: 10%; */
             top: 0%;
         }
 
@@ -268,7 +273,7 @@
                 client_secret = StrXOR(client_info.CLIENT_SECRET, urlParams.get('secret_key'));
 
             const testStr =
-                '{"tracks" : [{"side": "A", "source": "https://www.soundjay.com/human/sounds/fart-04.mp3","uri": "spotify:track:1YQWosTIljIvxAgHWTp7KP", "description": "no data"},{"side": "A", "source": "https://www.soundjay.com/human/sounds/fart-01.mp3","uri": "spotify:track:3nsUVlntPIksDvhHdZZhiu", "description": "no data"},{"side": "A", "source": "https://www.soundjay.com/human/sounds/fart-01.mp3","uri": "spotify:track:1YQWosTIljIvxAgHWTp7KP", "description": "no data"}]}';
+                '{"tracks" : [{"side": "A", "source": "https://www.soundjay.com/human/sounds/fart-04.mp3","uri": "spotify:track:1YQWosTIljIvxAgHWTp7KP", "description": "lots of interesting stuff that should wrap properly at some point. et xetera and on and on and so forth and henceforth"},{"side": "A", "source": "https://www.soundjay.com/human/sounds/fart-01.mp3","uri": "spotify:track:3nsUVlntPIksDvhHdZZhiu", "description": "no data"},{"side": "A", "source": "https://www.soundjay.com/human/sounds/fart-01.mp3","uri": "spotify:track:1YQWosTIljIvxAgHWTp7KP", "description": "no data"}]}';
             songJSON = 
                 await fetch("./song_descriptions.json")
                     .then(response => {
