@@ -3,8 +3,10 @@ img {
   width: 300px;
 }
 </style>
+
 A GUIDE TO VISUALIZING SIGNALS WITH THE ARP-2600
 ======
+
 Setup
 ------
 
@@ -37,8 +39,10 @@ Setup:
 3. Unless otherwise noted, the probe cable will be connected to the output of the VCF
 
 ![][probe_setup]
+
 Producing Visuals
 ------
+
 ### Basic Waveforms
 
 These periodic waveforms will be the basis of many of the effects produced later. This is not intended to be a comprehensive guide of the all the periodic waveforms the ARP can generate. These instructions assume the setup instructions are completed.
@@ -104,10 +108,7 @@ Providing a signal to the "FM Control" input of an oscillator allows it to modif
 
 If the modulating frequency is low enough, the modulated signal will change frequency over time in the oscilloscope and audibly. An interesting effect when modulating with a low frequency square or pulse wave is that that the signal will appear to instantly change frequency, while a smoother wave will cause this transition to look smoother.
 
-<video controls>
-<source src="file:///C:/Users/V/Documents/STUDIO/Osclilloscope_pics/FM_synth/lfsaw_sine.mp4"
-Your browser does not support the video tag
-</video>
+[Video of a low frequency sine wave modulating a sawtooth wave](./resources/Osclilloscope_pics/FM_synth/lfsaw_sine.mp4)
 
 #### Modulating Audio with Audio
 
@@ -132,6 +133,8 @@ The VCF is a low-pass filter with a variable amount of resonance. A low-pass fil
 3. Bring the initial filter frequency down
 
 The sharp corners of the waveform are smoothed out as the filter frequency reaches the fundamental of the oscillator. Cutting out the higher frequencies makes the wave resemble a sine wave more. Bringing the filter frequency below the oscillator frequency starts to attenuate the fundamental.
+
+[Video of the initial frequency being turned down until the input signal is totally attenuated](./resources/Oscilloscope_pics/filtering/filtering.mp4)
 
 #### Resonance
 
